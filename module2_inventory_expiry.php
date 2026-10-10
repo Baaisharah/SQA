@@ -215,8 +215,13 @@ try {
     $searchParameters = [];
 
     if ($search !== '') {
-        $searchSql = 'WHERE item_name LIKE :search OR category LIKE :search OR storage_location LIKE :search';
-        $searchParameters[':search'] = '%' . $search . '%';
+        $searchSql = 'WHERE item_name LIKE :search_item OR category LIKE :search_category OR storage_location LIKE :search_location';
+        $searchValue = '%' . $search . '%';
+        $searchParameters = [
+            ':search_item' => $searchValue,
+            ':search_category' => $searchValue,
+            ':search_location' => $searchValue,
+        ];
     }
 
     $batchStatement = $pdo->prepare(
@@ -333,9 +338,15 @@ $statCards = [
     <div class="prototype-bar px-4 py-2 text-center text-xs font-semibold tracking-wide text-white">
         <span class="opacity-80">PROTOTYPE SWITCHER</span>
         <span class="mx-2 opacity-50">/</span>
-        <span>Module 2 of 6</span>
-        <span class="mx-2 opacity-50">/</span>
-        <a class="underline underline-offset-2 hover:text-[#FDB773]" href="#">Switch prototype</a>
+        <div class="inline-flex items-center gap-2 text-xs">
+            <a class="rounded px-2 py-1 text-white hover:text-[#FDB773]" href="module1_supplier_order.php">Module 1</a>
+            <span class="opacity-50">/</span>
+            <a class="rounded px-2 py-1 font-bold text-[#FDB773]" href="module2_inventory_expiry.php">Module 2</a>
+            <span class="opacity-50">/</span>
+            <a class="rounded px-2 py-1 text-white hover:text-[#FDB773]" href="module3_ingredient_raw.php">Module 3</a>
+            <span class="opacity-50">/</span>
+            <a class="rounded px-2 py-1 text-white hover:text-[#FDB773]" href="dashboard.php">Dashboard</a>
+        </div>
     </div>
 
     <header class="topbar fixed left-0 right-0 top-8 z-30 flex h-[72px] items-center justify-between px-5 lg:left-64 lg:px-8">
@@ -365,19 +376,18 @@ $statCards = [
     </header>
 
     <aside id="sidebar" class="sidebar fixed bottom-0 left-0 top-[104px] z-40 w-64 px-4 py-7">
-        <div class="mb-7 flex items-center gap-3 px-3"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#A14646] text-white"><i class="fa-solid fa-cake-candles"></i></span><div><div class="text-[10px] font-bold uppercase tracking-[.18em] text-[#EB895B]">Welcome back</div><div class="font-bold text-[#3B2A2A]">Suka Kitchen</div></div></div>
-        <div class="mb-3 px-3 text-[10px] font-bold uppercase tracking-[.18em] text-[#BBA5A3]">Workspace</div>
-        <nav class="space-y-1">
-            <a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="#"><i class="fa-solid fa-chart-line w-5 text-center"></i> Dashboard</a>
-            <a class="nav-item active relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="#inventory"><i class="fa-solid fa-boxes-stacked w-5 text-center"></i> Inventory &amp; Expiry</a>
-                <a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="module1_supplier_order.php?tab=suppliers"><i class="fa-solid fa-truck-field w-5 text-center"></i> Supplier &amp; Order</a>
-                <a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="module3_ingredient_raw.php?tab=materials"><i class="fa-solid fa-flask w-5 text-center"></i> Ingredient &amp; Raw Material</a>
-                <a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="#"><i class="fa-solid fa-receipt w-5 text-center"></i> Sales</a>
-            <a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="#"><i class="fa-solid fa-chart-pie w-5 text-center"></i> Reports</a>
-            <a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="#"><i class="fa-solid fa-gear w-5 text-center"></i> Settings</a>
-        </nav>
-        <div class="absolute bottom-7 left-7 right-7 rounded-xl bg-[#FFF4F1] p-4"><div class="mb-2 flex items-center gap-2 text-xs font-bold text-[#A14646]"><i class="fa-solid fa-circle-info"></i> Stock reminder</div><p class="text-[11px] leading-relaxed text-[#8A7777]">Check orange and red batches before today's close.</p></div>
-    </aside>
+        <div class="mb-7 flex items-center gap-3 px-3">
+            
+    
+<span class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white">
+    <img
+        src="sukadessertlogo.jpg"
+        alt="Suka Dessert Logo"
+        class="h-full w-full object-contain"
+    >
+</span>
+
+<div><div class="text-[10px] font-bold uppercase tracking-[.18em] text-[#EB895B]">Welcome back</div><div class="font-bold text-[#3B2A2A]">Suka Dessert</div></div></div><div class="mb-3 px-3 text-[10px] font-bold uppercase tracking-[.18em] text-[#BBA5A3]">Workspace</div><nav class="space-y-1"><a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="dashboard.php"><i class="fa-solid fa-chart-line w-5 text-center"></i> Dashboard</a><a class="nav-item active relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="module2_inventory_expiry.php"><i class="fa-solid fa-boxes-stacked w-5 text-center"></i> Inventory &amp; Expiry</a><a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="module1_supplier_order.php"><i class="fa-solid fa-truck-field w-5 text-center"></i> Supplier &amp; Order</a><a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="module3_ingredient_raw.php"><i class="fa-solid fa-flask w-5 text-center"></i> Ingredient &amp; Raw Material</a><a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="#"><i class="fa-solid fa-chart-pie w-5 text-center"></i> Reports</a><a class="nav-item relative flex items-center gap-3 rounded-lg px-3 py-3 text-sm" href="#"><i class="fa-solid fa-gear w-5 text-center"></i> Settings</a></nav><div class="absolute bottom-7 left-7 right-7 rounded-xl bg-[#FFF4F1] p-4"><div class="mb-2 flex items-center gap-2 text-xs font-bold text-[#A14646]"><i class="fa-solid fa-circle-info"></i> Stock reminder</div><p class="text-[11px] leading-relaxed text-[#8A7777]">Check orange and red batches before today's close.</p></div></aside>
 
     <main id="inventory" class="min-h-screen px-4 pb-12 pt-[136px] lg:ml-64 lg:px-8">
         <div class="mx-auto max-w-[1500px]">
